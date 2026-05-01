@@ -384,6 +384,18 @@ def _wasserstein_distance(x, y):
         return torch.tensor(0.0, device=x.device)
 
 
+def build_plateau_scheduler(optimizer, config: Dict):
+    kwargs = {
+        'mode': 'min',
+        'factor': float(config.get('lr_factor', 0.5)),
+        'patience': int(config.get('lr_patience', 10)),
+    }
+    try:
+        return ReduceLROnPlateau(optimizer, verbose=True, **kwargs)
+    except TypeError:
+        return ReduceLROnPlateau(optimizer, **kwargs)
+
+
 def train_aux_classifier(aux_model, dataloader, device, epochs: int, lr: float,
                          backfill_manager: Optional[BackfillManager] = None,
                          val_loader=None, patience: Optional[int] = None):
@@ -894,7 +906,7 @@ def main():
     if domain_module is not None:
         optim_params += list(domain_module.parameters())
     optimizer = Adam(optim_params, lr=float(config['learning_rate']), weight_decay=float(config.get('weight_decay', 1e-5)))
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=float(config.get('lr_factor', 0.5)), patience=int(config.get('lr_patience', 10)), verbose=True)
+    scheduler = build_plateau_scheduler(optimizer, config)
     use_amp = AMP_AVAILABLE and bool(config.get('use_amp', False))
     scaler = GradScaler() if use_amp else None
     writer = SummaryWriter(config.get('tensorboard_dir', 'runs'))
