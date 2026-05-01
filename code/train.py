@@ -385,15 +385,12 @@ def _wasserstein_distance(x, y):
 
 
 def build_plateau_scheduler(optimizer, config: Dict):
-    kwargs = {
-        'mode': 'min',
-        'factor': float(config.get('lr_factor', 0.5)),
-        'patience': int(config.get('lr_patience', 10)),
-    }
-    try:
-        return ReduceLROnPlateau(optimizer, verbose=True, **kwargs)
-    except TypeError:
-        return ReduceLROnPlateau(optimizer, **kwargs)
+    return ReduceLROnPlateau(
+        optimizer,
+        mode='min',
+        factor=float(config.get('lr_factor', 0.5)),
+        patience=int(config.get('lr_patience', 10)),
+    )
 
 
 def train_aux_classifier(aux_model, dataloader, device, epochs: int, lr: float,
