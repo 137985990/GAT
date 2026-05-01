@@ -1,0 +1,144 @@
+accumulate_grad_batches: 1
+baseline_lr: 0.001
+baseline_max_epochs: 20
+baseline_patience: 5
+batch_size: 128
+block_col: block
+center_loss_weight: 0.0
+checkpoint_dir: Checkpoints
+common_modalities:
+- acc_x
+- acc_y
+- acc_z
+- ppg
+- gsr
+- hr
+- skt
+data_dir: Data
+data_files:
+- ../Data/FM_original.csv
+- ../Data/OD_original.csv
+- ../Data/MEFAR_original.csv
+cache_enabled: true
+cache_dir: Data/cache
+dataset_modalities:
+  FM:
+    have:
+    - alpha_tp10
+    - beta_tp10
+    - delta_tp10
+    - gamma_tp10
+    - theta_tp10
+    - ecg
+    - breathing
+    need:
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+  MEFAR:
+    have: []
+    need:
+    - alpha_tp10
+    - beta_tp10
+    - delta_tp10
+    - gamma_tp10
+    - theta_tp10
+    - ecg
+    - breathing
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+  OD:
+    have:
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+    need:
+    - alpha_tp10
+    - beta_tp10
+    - delta_tp10
+    - gamma_tp10
+    - theta_tp10
+    - ecg
+    - breathing
+early_stopping_patience: 8
+enable_baseline: false
+enable_structured_drop: false
+epochs: 12
+hidden_channels: 64
+label_balancing:
+  enabled: true
+  random_seed: 42
+  strategy: undersample
+  target_datasets:
+  - FM
+  target_ratio: null
+label_col: f
+learning_rate: 0.0005
+log_dir: Logs
+loss_config:
+  accuracy_reward_scale: 0.5
+  accuracy_threshold: 0.02
+  cls_improvement_weight: 2.0
+  cls_diff_weight: 0.5
+  cls_diff_clip: 10.0
+  dynamic_weighting: true
+  loss_smoothing: true
+  min_improvement_margin: 0.01
+  recon_weight: 1.0
+  smoothing_factor: 0.9
+  type: multimodal
+cls_degrade_trigger:
+  enabled: true
+  patience: 3
+  tol: 0.1
+  finetune_epochs: 3
+  finetune_lr: 0.0005
+force_backfill: true
+aux_classifier:
+  enabled: true
+  type: cnn
+  epochs: 5
+  lr: 0.0005
+  patience: 2
+  hidden: 512
+  depth: 2
+  dropout: 0.2
+  reset_on_backfill_ratio: 0.05
+  retrain_min_new: 500
+backfill_gate:
+  enabled: true
+  warmup_epochs: 2
+  interval: 3
+  dynamic_interval: true
+  interval_min: 1
+  interval_max: 5
+  interval_step: 1
+  acc_rate_low: 0.001
+  acc_rate_high: 0.01
+  min_acc_improve: 1.0
+  accept_correct: true
+  keep_present_mse_factor: 0.7
+  keep_max_per_batch: 1
+  max_accept_per_epoch: 2000
+  enable_stats: true
+  mean_tol: 0.1
+  std_tol: 0.1
+  mark_present: false
+lr_factor: 0.5
+lr_patience: 4
+missing_recon_weight: 0.0
+norm_method: zscore
+num_classes: 2
+num_workers: 4
+present_recon_weight: 1.0
+resume_training: false
+sampling_rate: 32
+save_interval: 10
+step_size: 128
+structured_drop_weight: 0.0
+tensorboard_dir: runs
+train_ratio: 0.6
+use_amp: true
+val_ratio: 0.2
+window_size: 320

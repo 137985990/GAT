@@ -1,0 +1,62 @@
+# Local data and generated artifacts
+Data/
+artifacts/
+
+# Dataset/database/table files anywhere in the repo
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+*.mdb
+*.accdb
+*.mat
+*.npz
+*.npy
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Training outputs and model weights
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.bin
+*.safetensors
+Logs/
+Checkpoints/
+runs/
+code/Logs/
+code/Checkpoints/
+code/runs/
+code/Data/cache/
+
+# Environment and editor noise
+.env
+.env.*
+.venv/
+venv/
+.vscode/
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Legacy/non-program materials not needed in the code repository
+docs/archive/legacy-paper/
+PROJECT_DIALOGUE_SUMMARY.md

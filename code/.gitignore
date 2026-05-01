@@ -1,0 +1,40 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs & TB
+Logs/
+logs/
+*.log
+runs/
+artifacts/
+
+# Checkpoints (keep best manually)
+checkpoint_epoch_*.pth
+*.pth.old
+*.bak
+
+# Temporary / experimental python files
+*_tmp.py
+*_temp.py
+model_clean_tmp.py
+model_clean_replacement.py
+rep*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Archives
+*.zip
+
+# Outputs (regenerable)
+outputs/
+predicted_data/
+results_single/
+
+test_outputs/
+.pytest_cache/

@@ -1,0 +1,126 @@
+seed: 42
+batch_size: 4
+epochs: 1
+train_ratio: 0.6
+val_ratio: 0.2
+window_size: 128
+step_size: 64
+sampling_rate: 1
+use_amp: false
+num_workers: 0
+accumulate_grad_batches: 1
+cache_enabled: false
+p_data_files:
+- ../Data/Fatigueset_P.csv
+- ../Data/VPFD_P.csv
+pp_data_files:
+- ../Data/WESAD_PP.csv
+- ../Data/WearableExamStress_PP.csv
+loss_config:
+  recon_weight: 1.0
+  cls_diff_weight: 0.5
+  cls_diff_clip: 5.0
+staged_training:
+  stage1_epochs: 1
+  stage1_name: warmup
+  stage2_epochs: 0
+  stage2_name: supervised
+  default_stage: warmup
+common_modalities:
+- acc_x
+- acc_y
+- acc_z
+- ppg
+- gsr
+- hr
+- skt
+- eeg_delta
+- eeg_theta
+- eeg_alpha
+- eeg_beta
+- eeg_gamma
+dataset_modalities:
+  FM:
+    have:
+    - ecg
+    - breathing
+    need:
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+    - eog_v
+    - eog_h
+    - emg
+  MEFAR:
+    have: []
+    need:
+    - ecg
+    - breathing
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+    - eog_v
+    - eog_h
+    - emg
+  OD:
+    have:
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+    need:
+    - ecg
+    - breathing
+    - eog_v
+    - eog_h
+    - emg
+  DROZY:
+    have:
+    - eog_v
+    - eog_h
+    - emg
+    - ecg
+    need:
+    - breathing
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+  WESAD:
+    have:
+    - ecg
+    - breathing
+    - emg
+    - ppg
+    - gsr
+    - skt
+    need:
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+    - eog_v
+    - eog_h
+  CogBeacon:
+    have:
+    - eeg_alpha
+    - eeg_beta
+    - eeg_delta
+    - eeg_gamma
+    - eeg_theta
+    need:
+    - ecg
+    - breathing
+    - emg
+    - ppg
+    - gsr
+    - skt
+    - space_distance
+    - distance_to_eye_center
+    - pose_pca
+    - eog_v
+    - eog_h
+    - acc_x
+    - acc_y
+    - acc_z
+    - hr
+block_col: block
+label_col: f
+norm_method: zscore
